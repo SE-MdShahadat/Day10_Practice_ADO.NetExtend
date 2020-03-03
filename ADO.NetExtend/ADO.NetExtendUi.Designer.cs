@@ -43,17 +43,19 @@
             this.rollNoTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
             this.ShowButton = new System.Windows.Forms.Button();
             this.displayDataGridView = new System.Windows.Forms.DataGridView();
-            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rollNoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Department = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -182,11 +184,13 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.searchTextBox);
             this.groupBox2.Controls.Add(this.SearchButton);
             this.groupBox2.Controls.Add(this.DeleteButton);
             this.groupBox2.Controls.Add(this.EditButton);
             this.groupBox2.Controls.Add(this.ShowButton);
             this.groupBox2.Controls.Add(this.displayDataGridView);
+            this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Location = new System.Drawing.Point(323, 13);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(704, 263);
@@ -194,38 +198,48 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Student Records";
             // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(310, 28);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(147, 22);
+            this.searchTextBox.TabIndex = 4;
+            // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(447, 227);
+            this.SearchButton.Location = new System.Drawing.Point(463, 26);
             this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(75, 30);
+            this.SearchButton.Size = new System.Drawing.Size(75, 27);
             this.SearchButton.TabIndex = 3;
             this.SearchButton.Text = "Search";
             this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(366, 227);
+            this.DeleteButton.Location = new System.Drawing.Point(625, 27);
             this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(75, 30);
+            this.DeleteButton.Size = new System.Drawing.Size(75, 27);
             this.DeleteButton.TabIndex = 3;
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // EditButton
             // 
-            this.EditButton.Location = new System.Drawing.Point(285, 227);
+            this.EditButton.Location = new System.Drawing.Point(544, 27);
             this.EditButton.Name = "EditButton";
-            this.EditButton.Size = new System.Drawing.Size(75, 30);
+            this.EditButton.Size = new System.Drawing.Size(75, 27);
             this.EditButton.TabIndex = 3;
             this.EditButton.Text = "Edit";
             this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // ShowButton
             // 
-            this.ShowButton.Location = new System.Drawing.Point(204, 227);
+            this.ShowButton.Location = new System.Drawing.Point(9, 27);
             this.ShowButton.Name = "ShowButton";
-            this.ShowButton.Size = new System.Drawing.Size(75, 30);
+            this.ShowButton.Size = new System.Drawing.Size(75, 27);
             this.ShowButton.TabIndex = 3;
             this.ShowButton.Text = "Show";
             this.ShowButton.UseVisualStyleBackColor = true;
@@ -244,17 +258,13 @@
             this.Department,
             this.addressDataGridViewTextBoxColumn});
             this.displayDataGridView.DataSource = this.studentBindingSource;
-            this.displayDataGridView.Location = new System.Drawing.Point(7, 22);
+            this.displayDataGridView.Location = new System.Drawing.Point(9, 58);
             this.displayDataGridView.Name = "displayDataGridView";
             this.displayDataGridView.ReadOnly = true;
             this.displayDataGridView.RowHeadersWidth = 51;
             this.displayDataGridView.RowTemplate.Height = 24;
             this.displayDataGridView.Size = new System.Drawing.Size(691, 199);
             this.displayDataGridView.TabIndex = 0;
-            // 
-            // studentBindingSource
-            // 
-            this.studentBindingSource.DataSource = typeof(ADO.NetExtend.Models.Student);
             // 
             // rollNoDataGridViewTextBoxColumn
             // 
@@ -301,6 +311,19 @@
             this.addressDataGridViewTextBoxColumn.ReadOnly = true;
             this.addressDataGridViewTextBoxColumn.Width = 125;
             // 
+            // studentBindingSource
+            // 
+            this.studentBindingSource.DataSource = typeof(ADO.NetExtend.Models.Student);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(250, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 17);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Roll No";
+            // 
             // ADONetExtendUi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -315,6 +338,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.displayDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -348,6 +372,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ageDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Department;
         private System.Windows.Forms.DataGridViewTextBoxColumn addressDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Label label6;
     }
 }
 

@@ -18,11 +18,14 @@ namespace ADO.NetExtend
         SqlConnection sqlConnection;
         SqlCommand sqlCommand;
         string commandString;
+        Student student;
+        string saveStatus;
         public ADONetExtendUi()
         {
             InitializeComponent();
             connectionString = @"Server=MDSHAHADAT; Database=StudentDB; Integrated Security=true;";
             sqlConnection = new SqlConnection(connectionString);
+            
         }
 
         private void ADONetExtendUi_Load(object sender, EventArgs e)
@@ -48,23 +51,55 @@ namespace ADO.NetExtend
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            Student student = new Student();
-            student.RollNo = Convert.ToInt32(rollNoTextBox.Text);
-            student.Name = nameTextBox.Text;
-            student.Age = Convert.ToInt32(ageTextBox.Text);
-            student.DepartmentID =Convert.ToInt32( departmentComboBox.SelectedValue);
-            student.Address = addressTextBox.Text;
-            sqlConnection.Open();
-            commandString = @"Insert Into Students(RollNo, Name, Age, DepartmentID, Address) Values ('"+student.RollNo+"','"+student.Name+"','"+student.Age+"','"+student.DepartmentID+"','"+student.Address+"')";
-            sqlCommand = new SqlCommand(commandString, sqlConnection);
-
-            int isExecuted = sqlCommand.ExecuteNonQuery();
-            if (isExecuted > 0)
+            if(SaveButton.Text == "Save")
             {
-                MessageBox.Show("Information Saved!");
+                student = new Student();
+                student.RollNo = Convert.ToInt32(rollNoTextBox.Text);
+                student.Name = nameTextBox.Text;
+                student.Age = Convert.ToInt32(ageTextBox.Text);
+                student.DepartmentID = Convert.ToInt32(departmentComboBox.SelectedValue);
+                student.Address = addressTextBox.Text;
+                sqlConnection.Open();
+                commandString = @"Insert Into Students(RollNo, Name, Age, DepartmentID, Address) Values ('" + student.RollNo + "','" + student.Name + "','" + student.Age + "','" + student.DepartmentID + "','" + student.Address + "')";
+                sqlCommand = new SqlCommand(commandString, sqlConnection);
+
+                int isExecuted = sqlCommand.ExecuteNonQuery();
+                if (isExecuted > 0)
+                {
+                    MessageBox.Show("Information Saved!");
+                }
+                else MessageBox.Show("Failed!");
+                sqlConnection.Close();
+                saveStatus = "Save";
+                SaveButton.Text = "Save";
+
             }
-            else MessageBox.Show("Failed!");
-            sqlConnection.Close();
+            if (SaveButton.Text == "Update")
+            {
+                student = new Student();
+                
+                student.RollNo = Convert.ToInt32(searchTextBox.Text);
+                student.Name = nameTextBox.Text;
+                student.Age = Convert.ToInt32(ageTextBox.Text);
+                student.DepartmentID = Convert.ToInt32(departmentComboBox.SelectedValue);
+                student.Address = addressTextBox.Text;
+                sqlConnection.Open();
+                commandString = @"Update Students SET Name='" + student.Name + "', Age='" + student.Age + "', DepartmentID='" + student.DepartmentID + "', Address='" + student.Address + "' where RollNo='" + student.RollNo + "'";
+                sqlCommand = new SqlCommand(commandString, sqlConnection);
+
+                int isExecuted = sqlCommand.ExecuteNonQuery();
+                if (isExecuted > 0)
+                {
+                    MessageBox.Show("Information Saved!");
+                    SaveButton.Text = "Save";
+                    saveStatus = "Save";
+                    rollNoTextBox.Enabled = true;
+                }
+                else MessageBox.Show("Failed!");
+                sqlConnection.Close();
+                
+            }
+            
         }
 
         private void ShowButton_Click(object sender, EventArgs e)
@@ -79,6 +114,65 @@ namespace ADO.NetExtend
             {
                 displayDataGridView.DataSource = dataTable;
             }
+            sqlConnection.Close();
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+           
+            student = new Student();
+            student.RollNo = Convert.ToInt32(searchTextBox.Text);
+            commandString = @"Select * From StudentsView where RollNo='" + student.RollNo + "'";
+            sqlCommand = new SqlCommand(commandString, sqlConnection);
+            sqlConnection.Open();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            if (dataTable.Rows.Count > 0)
+            {
+                displayDataGridView.DataSource = dataTable;
+                MessageBox.Show("Give information to input box on left side!!!");
+                saveStatus = "Update";
+                SaveButton.Text = "Update";
+                rollNoTextBox.Enabled = false;
+            }
+            else MessageBox.Show("No records found!");
+            sqlConnection.Close();
+            
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+           
+            student = new Student();
+            student.RollNo = Convert.ToInt32(searchTextBox.Text);
+            commandString = @"Select * From StudentsView where RollNo='"+student.RollNo+"'";
+            sqlCommand = new SqlCommand(commandString, sqlConnection);
+            sqlConnection.Open();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            if (dataTable.Rows.Count > 0)
+            {
+                displayDataGridView.DataSource = dataTable;
+                
+            }
+            else MessageBox.Show("No records found!");
+            sqlConnection.Close();
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            student = new Student();
+            student.RollNo = Convert.ToInt32(searchTextBox.Text);
+            commandString = @"Delete From Students where RollNo='" + student.RollNo + "'";
+            sqlCommand = new SqlCommand(commandString, sqlConnection);
+            sqlConnection.Open();
+            int isExecuted = sqlCommand.ExecuteNonQuery();
+            if (isExecuted > 0)
+            {
+                MessageBox.Show("Record deleted successfully!");
+            } else MessageBox.Show("Record failed to deleted!");
             sqlConnection.Close();
         }
     }
