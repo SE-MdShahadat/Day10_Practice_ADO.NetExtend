@@ -31,6 +31,7 @@ namespace ADO.NetExtend
         private void ADONetExtendUi_Load(object sender, EventArgs e)
         {
             LoadDepartment();
+            
         }
         private void LoadDepartment()
         {
@@ -45,6 +46,7 @@ namespace ADO.NetExtend
                 departmentComboBox.DataSource = dataTable;
             }
             sqlConnection.Close();
+           
 
 
         }
