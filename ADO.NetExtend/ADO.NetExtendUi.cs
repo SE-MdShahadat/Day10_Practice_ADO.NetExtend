@@ -175,5 +175,10 @@ namespace ADO.NetExtend
             } else MessageBox.Show("Record failed to deleted!");
             sqlConnection.Close();
         }
+
+        private void displayDataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            displayDataGridView.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+        }
     }
 }

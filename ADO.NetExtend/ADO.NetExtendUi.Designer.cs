@@ -49,6 +49,7 @@
             this.EditButton = new System.Windows.Forms.Button();
             this.ShowButton = new System.Windows.Forms.Button();
             this.displayDataGridView = new System.Windows.Forms.DataGridView();
+            this.SL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rollNoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -252,6 +253,7 @@
             this.displayDataGridView.AutoGenerateColumns = false;
             this.displayDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.displayDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SL,
             this.rollNoDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn,
             this.ageDataGridViewTextBoxColumn,
@@ -265,6 +267,15 @@
             this.displayDataGridView.RowTemplate.Height = 24;
             this.displayDataGridView.Size = new System.Drawing.Size(691, 199);
             this.displayDataGridView.TabIndex = 0;
+            this.displayDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.displayDataGridView_RowPostPaint);
+            // 
+            // SL
+            // 
+            this.SL.HeaderText = "SL";
+            this.SL.MinimumWidth = 6;
+            this.SL.Name = "SL";
+            this.SL.ReadOnly = true;
+            this.SL.Width = 125;
             // 
             // rollNoDataGridViewTextBoxColumn
             // 
@@ -367,13 +378,14 @@
         private System.Windows.Forms.DataGridView displayDataGridView;
         private System.Windows.Forms.BindingSource departmentBindingSource;
         private System.Windows.Forms.BindingSource studentBindingSource;
+        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SL;
         private System.Windows.Forms.DataGridViewTextBoxColumn rollNoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ageDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Department;
         private System.Windows.Forms.DataGridViewTextBoxColumn addressDataGridViewTextBoxColumn;
-        private System.Windows.Forms.TextBox searchTextBox;
-        private System.Windows.Forms.Label label6;
     }
 }
 
